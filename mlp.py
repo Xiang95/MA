@@ -4,15 +4,17 @@ import torch as pt
 import torchvision as ptv
 import torch.nn.functional as F
 import torch.nn as nn
+import torch
 
-train_set = ptv.datasets.MNIST("../../pytorch_database/mnist/train",train=True,transform=ptv.transforms.ToTensor(),download=True)
-test_set = ptv.datasets.MNIST("../../pytorch_database/mnist/test",train=False,transform=ptv.transforms.ToTensor(),download=True)
+train_set = ptv.datasets.MNIST("../../pytorch_database/mnist/train", train=True,transform=ptv.transforms.ToTensor(),download=True)
+test_set = ptv.datasets.MNIST("../../pytorch_database/mnist/test", train=False,transform=ptv.transforms.ToTensor(),download=True)
 
 train_dataset = pt.utils.data.DataLoader(train_set,batch_size=100)
 test_dataset = pt.utils.data.DataLoader(test_set,batch_size=100)
 
+
 class MLP(torch.nn.Module):
-    def __init__(self, input_size, hidden_size,output_size):
+    def __init__(self, input_size, hidden_size, output_size):
         super(MLP, self).__init__()
         self.input_size = input_size
         self.hidden_size = hidden_size
@@ -43,6 +45,7 @@ def AccuarcyCompute(pred, label):
     test_np = (np.argmax(pred, 1)==label)
     test_np = np.float32(test_np)
     return np.mean(test_np)
+
 
 for x in range(4):
     for i, data in enumerate(train_dataset):
